@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is an example phishing report. (c) 2014, The APWG.
+http://www.apwg.org
+
+Phishing reports contains data on the important pieces
+  1. The Credential Collection URL.
+  2. The lure used.
+  3. .
+-->
+<STIX_Package id="apwg.org-382ded87-52c9-4644-bab0-ad3168cbad59"
+              version="1.1.1"
+              xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/objects#FileObject-2 ../../CyBox/objects/File_Object.xsd http://cybox.mitre.org/objects#URIObject-2 ../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#EmailMessageObject-2 ../../CyBox/objects/Email_Message_Object.xsd http://stix.mitre.org/TTP-1 ../../STIX/ttp.xsd http://cybox.mitre.org/cybox-2 ../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../CyBox/cybox_common.xsd http://cybox.mitre.org/objects#URIObject-2 ../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DNSQueryObject-2 ../../CyBox/objects/DNS_Query_Object.xsd"
+              xmlns="http://stix.mitre.org/stix-1"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:uri="http://cybox.mitre.org/objects#URIObject-2"
+              xmlns:ttp="http://stix.mitre.org/TTP-1"
+              xmlns:ta="http://stix.mitre.org/ThreatActor-1"
+              xmlns:stixVocabs="http://stix.mitre.org/default_vocabularies-1"
+              xmlns:stixCommon="http://stix.mitre.org/common-1"
+              xmlns:stix="http://stix.mitre.org/stix-1"
+              xmlns:marking="http://data-marking.mitre.org/Marking-1"
+              xmlns:indicator="http://stix.mitre.org/Indicator-2"
+              xmlns:incident="http://stix.mitre.org/Incident-1"
+              xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+              xmlns:et="http://stix.mitre.org/ExploitTarget-1"
+              xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2"
+              xmlns:cyboxCommon="http://cybox.mitre.org/common-2"
+              xmlns:cybox="http://cybox.mitre.org/cybox-2"
+              xmlns:coa="http://stix.mitre.org/CourseOfAction-1"
+              xmlns:campaign="http://stix.mitre.org/Campaign-1"
+              xmlns:FileObj="http://cybox.mitre.org/objects#FileObject-2"
+              xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+              xmlns:DNSRecordObj="http://cybox.mitre.org/objects#DNSRecordObject-2"
+              xmlns:DNSQueryObj="http://cybox.mitre.org/objects#DNSQueryObject-2"
+              xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2">
+  <!--This is a guess at alerting on a phishing lure and collection URI using SIX-1.1. It is unclear if receipt of a phishing lure is an 'indicator' or an 'incident'. Maybe it depends on whether you are the target.-->
+
+  <STIX_Header>
+    <Title>Example Fish</Title>
+
+    <Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Indicators - Phishing</Package_Intent>
+
+    <Profiles>
+      <stixCommon:Profile>apwg.org:phish-1</stixCommon:Profile>
+    </Profiles>
+
+    <Handling>
+      <marking:Marking></marking:Marking>
+    </Handling>
+
+    <Information_Source>
+      <stixCommon:Identity>
+        <stixCommon:Name>pat cain,pcain@apwg.org</stixCommon:Name>
+      </stixCommon:Identity>
+    </Information_Source>
+  </STIX_Header>
+
+  <!--We can  have some observables - maybe the email header and the URL?-->
+
+  <Indicators>
+    <!--Maybe they are indicators. The pieces:  the email, the collector URL, -->
+
+    <Indicator xsi:type="indicator:IndicatorType"></Indicator>
+
+    <Indicator xsi:type="indicator:IndicatorType">
+      <indicator:Observable>
+        <!--So lets describe the email: From (address + IP + DNS), subject, Date Recd, body (+ lang)-->
+
+        <cybox:Object>
+          <cybox:Properties xsi:type="EmailMessageObj:EmailMessageObjectType">
+            <EmailMessageObj:Header>
+              <EmailMessageObj:Received_Lines>
+                <EmailMessageObj:Received></EmailMessageObj:Received>
+              </EmailMessageObj:Received_Lines>
+
+              <EmailMessageObj:From category="e-mail" is_source="true">
+                <AddressObj:Address_Value datatype="string">"Kahn, Sinval"
+                &lt;Kahnsb@unisa.ac.za&gt;</AddressObj:Address_Value>
+              </EmailMessageObj:From>
+
+              <EmailMessageObj:Subject>Your mailbox is almost
+              full.</EmailMessageObj:Subject>
+
+              <EmailMessageObj:Date>Tue, 24 Sep 2013 00:08:02 +0200
+              </EmailMessageObj:Date>
+
+              <EmailMessageObj:X_Originating_IP>
+                <cyboxCommon:Custom_Properties>
+                  <cyboxCommon:Property datatype="Host Name">umkn-edg01.unisa.ac.za</cyboxCommon:Property>
+                </cyboxCommon:Custom_Properties>
+
+                <AddressObj:Address_Value>163.200.219.15</AddressObj:Address_Value>
+              </EmailMessageObj:X_Originating_IP>
+            </EmailMessageObj:Header>
+
+            <EmailMessageObj:Raw_Body>&lt;html
+            xmlns:v="urn:schemas-microsoft-com:vml"
+            xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:w="urn:schemas-microsoft-com:office:word"
+            xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+            xmlns="http://www.w3.org/TR/REC-html40"&gt; &lt;head&gt; &lt;meta
+            http-equiv=Content-Type content="text/html;
+            charset=windows-1252"&gt; &lt;meta name=ProgId
+            content=Word.Document&gt; &lt;meta name=Generator
+            content="Microsoft Word 14"&gt; &lt;meta name=Originator
+            content="Microsoft Word 14"&gt; &lt;link rel=File-List
+            href="Your%20mailbox%20is%20almost%20full._files/filelist.xml"&gt;
+            &lt;link rel=Edit-Time-Data
+            href="Your%20mailbox%20is%20almost%20full._files/editdata.mso"&gt;
+            &lt;!--[if !mso]&gt; &lt;style id=owaTempEditStyle&gt; v\:*
+            {behavior:url(#default#VML);} o\:* {behavior:url(#default#VML);}
+            w\:* {behavior:url(#default#VML);} .shape
+            {behavior:url(#default#VML);} &lt;/style&gt;
+            &lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+            &lt;o:DocumentProperties&gt;
+            &lt;o:Author&gt;patCain&lt;/o:Author&gt;
+            &lt;o:Template&gt;NormalEmail.dotm&lt;/o:Template&gt;
+            &lt;o:Revision&gt;1&lt;/o:Revision&gt;
+            &lt;o:TotalTime&gt;0&lt;/o:TotalTime&gt;
+            &lt;o:Created&gt;2014-07-26T17:30:00Z&lt;/o:Created&gt;
+            &lt;o:Pages&gt;1&lt;/o:Pages&gt; &lt;o:Words&gt;84&lt;/o:Words&gt;
+            &lt;o:Characters&gt;480&lt;/o:Characters&gt;
+            &lt;o:Company&gt;Toshiba&lt;/o:Company&gt;
+            &lt;o:Lines&gt;4&lt;/o:Lines&gt;
+            &lt;o:Paragraphs&gt;1&lt;/o:Paragraphs&gt;
+            &lt;o:CharactersWithSpaces&gt;563&lt;/o:CharactersWithSpaces&gt;
+            &lt;o:Version&gt;14.00&lt;/o:Version&gt;
+            &lt;/o:DocumentProperties&gt; &lt;o:OfficeDocumentSettings&gt;
+            &lt;o:AllowPNG/&gt; &lt;/o:OfficeDocumentSettings&gt;
+            &lt;/xml&gt;&lt;![endif]--&gt; &lt;link rel=themeData
+            href="Your%20mailbox%20is%20almost%20full._files/themedata.thmx"&gt;
+            &lt;link rel=colorSchemeMapping
+            href="Your%20mailbox%20is%20almost%20full._files/colorschememapping.xml"&gt;
+            &lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;w:WordDocument&gt;
+            &lt;w:Zoom&gt;0&lt;/w:Zoom&gt; &lt;w:TrackMoves/&gt;
+            &lt;w:TrackFormatting/&gt; &lt;w:ValidateAgainstSchemas/&gt;
+            &lt;w:SaveIfXMLInvalid&gt;false&lt;/w:SaveIfXMLInvalid&gt;
+            &lt;w:IgnoreMixedContent&gt;false&lt;/w:IgnoreMixedContent&gt;
+            &lt;w:AlwaysShowPlaceholderText&gt;false&lt;/w:AlwaysShowPlaceholderText&gt;
+            &lt;w:DoNotPromoteQF/&gt;
+            &lt;w:LidThemeOther&gt;EN-US&lt;/w:LidThemeOther&gt;
+            &lt;w:LidThemeAsian&gt;X-NONE&lt;/w:LidThemeAsian&gt;
+            &lt;w:LidThemeComplexScript&gt;X-NONE&lt;/w:LidThemeComplexScript&gt;
+            &lt;w:Compatibility&gt; &lt;w:DoNotExpandShiftReturn/&gt;
+            &lt;w:BreakWrappedTables/&gt; &lt;w:SplitPgBreakAndParaMark/&gt;
+            &lt;w:EnableOpenTypeKerning/&gt; &lt;/w:Compatibility&gt;
+            &lt;m:mathPr&gt; &lt;m:mathFont m:val="Cambria Math"/&gt;
+            &lt;m:brkBin m:val="before"/&gt; &lt;m:brkBinSub
+            m:val="&amp;#45;-"/&gt; &lt;m:smallFrac m:val="off"/&gt;
+            &lt;m:dispDef/&gt; &lt;m:lMargin m:val="0"/&gt; &lt;m:rMargin
+            m:val="0"/&gt; &lt;m:defJc m:val="centerGroup"/&gt;
+            &lt;m:wrapIndent m:val="1440"/&gt; &lt;m:intLim
+            m:val="subSup"/&gt; &lt;m:naryLim m:val="undOvr"/&gt;
+            &lt;/m:mathPr&gt;&lt;/w:WordDocument&gt;
+            &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+            &lt;w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+            DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+            LatentStyleCount="267"&gt; &lt;w:LsdException Locked="false"
+            Priority="0" SemiHidden="false" UnhideWhenUsed="false"
+            QFormat="true" Name="Normal"/&gt; &lt;w:LsdException
+            Locked="false" Priority="9" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="heading 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="9" QFormat="true"
+            Name="heading 2"/&gt; &lt;w:LsdException Locked="false"
+            Priority="9" QFormat="true" Name="heading 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="9" QFormat="true"
+            Name="heading 4"/&gt; &lt;w:LsdException Locked="false"
+            Priority="9" QFormat="true" Name="heading 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="9" QFormat="true"
+            Name="heading 6"/&gt; &lt;w:LsdException Locked="false"
+            Priority="9" QFormat="true" Name="heading 7"/&gt;
+            &lt;w:LsdException Locked="false" Priority="9" QFormat="true"
+            Name="heading 8"/&gt; &lt;w:LsdException Locked="false"
+            Priority="9" QFormat="true" Name="heading 9"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 7"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 8"/&gt;
+            &lt;w:LsdException Locked="false" Priority="39" Name="toc 9"/&gt;
+            &lt;w:LsdException Locked="false" Priority="35" QFormat="true"
+            Name="caption"/&gt; &lt;w:LsdException Locked="false"
+            Priority="10" SemiHidden="false" UnhideWhenUsed="false"
+            QFormat="true" Name="Title"/&gt; &lt;w:LsdException Locked="false"
+            Priority="1" Name="Default Paragraph Font"/&gt; &lt;w:LsdException
+            Locked="false" Priority="11" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/&gt;
+            &lt;w:LsdException Locked="false" Priority="22" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Strong"/&gt;
+            &lt;w:LsdException Locked="false" Priority="20" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/&gt;
+            &lt;w:LsdException Locked="false" Priority="59" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Table Grid"/&gt; &lt;w:LsdException
+            Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/&gt;
+            &lt;w:LsdException Locked="false" Priority="1" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List"/&gt; &lt;w:LsdException
+            Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid"/&gt; &lt;w:LsdException
+            Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List"/&gt; &lt;w:LsdException
+            Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" UnhideWhenUsed="false"
+            Name="Revision"/&gt; &lt;w:LsdException Locked="false"
+            Priority="34" SemiHidden="false" UnhideWhenUsed="false"
+            QFormat="true" Name="List Paragraph"/&gt; &lt;w:LsdException
+            Locked="false" Priority="29" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Quote"/&gt;
+            &lt;w:LsdException Locked="false" Priority="30" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/&gt;
+            &lt;w:LsdException Locked="false" Priority="60" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Shading Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="61" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light List Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="62" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Light Grid Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="63" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="64" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="65" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="66" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="67" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="68" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="69" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="70" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Dark List Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="71" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="72" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful List Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="73" SemiHidden="false"
+            UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/&gt;
+            &lt;w:LsdException Locked="false" Priority="19" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/&gt;
+            &lt;w:LsdException Locked="false" Priority="21" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/&gt;
+            &lt;w:LsdException Locked="false" Priority="31" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/&gt;
+            &lt;w:LsdException Locked="false" Priority="32" SemiHidden="false"
+            UnhideWhenUsed="false" QFormat="true" Name="Intense
+            Reference"/&gt; &lt;w:LsdException Locked="false" Priority="33"
+            SemiHidden="false" UnhideWhenUsed="false" QFormat="true"
+            Name="Book Title"/&gt; &lt;w:LsdException Locked="false"
+            Priority="37" Name="Bibliography"/&gt; &lt;w:LsdException
+            Locked="false" Priority="39" QFormat="true" Name="TOC
+            Heading"/&gt; &lt;/w:LatentStyles&gt;
+            &lt;/xml&gt;&lt;![endif]--&gt; &lt;style&gt; &lt;!-- /* Font
+            Definitions */ @font-face {font-family:Calibri; panose-1:2 15 5 2
+            2 2 4 3 2 4; mso-font-charset:0; mso-generic-font-family:swiss;
+            mso-font-pitch:variable; mso-font-signature:-536870145 1073786111
+            1 0 415 0;} @font-face {font-family:Tahoma; panose-1:2 11 6 4 3 5
+            4 4 2 4; mso-font-charset:0; mso-generic-font-family:swiss;
+            mso-font-pitch:variable; mso-font-signature:-520081665 -1073717157
+            41 0 66047 0;} /* Style Definitions */ p.MsoNormal, li.MsoNormal,
+            div.MsoNormal {mso-style-unhide:no; mso-style-qformat:yes;
+            mso-style-parent:""; margin:0in; margin-bottom:.0001pt;
+            mso-pagination:widow-orphan; font-size:12.0pt; font-family:"Times
+            New Roman","serif"; mso-fareast-font-family:Calibri;
+            mso-fareast-theme-font:minor-latin;} a:link, span.MsoHyperlink
+            {mso-style-priority:99; color:blue; text-decoration:underline;
+            text-underline:single;} p {mso-style-noshow:yes;
+            mso-style-priority:99; margin:0in; margin-bottom:.0001pt;
+            mso-pagination:widow-orphan; font-size:12.0pt; font-family:"Times
+            New Roman","serif"; mso-fareast-font-family:Calibri;
+            mso-fareast-theme-font:minor-latin;} .MsoChpDefault
+            {mso-style-type:export-only; mso-default-props:yes;
+            font-size:10.0pt; mso-ansi-font-size:10.0pt;
+            mso-bidi-font-size:10.0pt;} @page WordSection1 {size:8.5in 11.0in;
+            margin:1.0in 1.0in 1.0in 1.0in; mso-header-margin:.5in;
+            mso-footer-margin:.5in; mso-paper-source:0;} div.WordSection1
+            {page:WordSection1;} --&gt; &lt;/style&gt; &lt;!--[if gte mso
+            10]&gt; &lt;style&gt; /* Style Definitions */ table.MsoNormalTable
+            {mso-style-name:"Table Normal"; mso-tstyle-rowband-size:0;
+            mso-tstyle-colband-size:0; mso-style-noshow:yes;
+            mso-style-priority:99; mso-style-parent:""; mso-padding-alt:0in
+            5.4pt 0in 5.4pt; mso-para-margin:0in;
+            mso-para-margin-bottom:.0001pt; mso-pagination:widow-orphan;
+            font-size:10.0pt; font-family:"Times New Roman","serif";}
+            &lt;/style&gt; &lt;![endif]--&gt; &lt;/head&gt; &lt;body
+            lang=EN-US link=blue vlink=purple style='tab-interval:.5in'
+            ocsi=x&gt; &lt;div class=WordSection1&gt; &lt;p class=MsoNormal
+            style='margin-left:120.0pt;text-indent:-120.0pt;tab-stops:
+            120.0pt;mso-layout-grid-align:none;text-autospace:none'&gt;&lt;b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;From:&lt;span
+            style='mso-tab-count:1'&gt;                             
+            &lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Kahn, Sinval
+            &amp;lt;Kahnsb@unisa.ac.za&amp;gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;p class=MsoNormal
+            style='margin-left:120.0pt;text-indent:-120.0pt;tab-stops:
+            120.0pt;mso-layout-grid-align:none;text-autospace:none'&gt;&lt;b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Sent:&lt;span
+            style='mso-tab-count:1'&gt;                              
+            &lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Monday, September 23, 2013 6:07
+            PM&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt; &lt;p
+            class=MsoNormal
+            style='margin-left:120.0pt;text-indent:-120.0pt;tab-stops:
+            120.0pt;mso-layout-grid-align:none;text-autospace:none'&gt;&lt;b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;To:&lt;span
+            style='mso-tab-count:1'&gt;                                  
+            &lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Undisclosed
+            recipients:&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt; &lt;p
+            class=MsoNormal
+            style='margin-left:120.0pt;text-indent:-120.0pt;tab-stops:
+            120.0pt;mso-layout-grid-align:none;text-autospace:none'&gt;&lt;b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Subject:&lt;span
+            style='mso-tab-count:1'&gt;                         
+            &lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='font-family:"Calibri","sans-serif";mso-bidi-font-family:Calibri;
+            color:black'&gt;Your mailbox is almost
+            full.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt; &lt;p
+            class=MsoNormal&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/p&gt;
+            &lt;p class=MsoNormal&gt;&lt;span
+            style='font-size:7.5pt;font-family:"Arial","sans-serif";
+            mso-fareast-font-family:"Times New Roman";color:blue'&gt;This
+            message (and attachments) is subject to restrictions and a
+            disclaimer. Please refer to &lt;a
+            href="http://www.unisa.ac.za/disclaimer"&gt;http://www.unisa.ac.za/disclaimer&lt;/a&gt;
+            for full details.&lt;/span&gt;&lt;span
+            style='mso-fareast-font-family:"Times New
+            Roman"'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt; &lt;div
+            class=MsoNormal align=center style='text-align:center'&gt;&lt;span
+            style='mso-fareast-font-family:"Times New Roman"'&gt; &lt;hr
+            size=2 width="100%" align=center&gt; &lt;/span&gt;&lt;/div&gt;
+            &lt;p class=MsoNormal&gt;&lt;span
+            style='mso-fareast-font-family:"Times New
+            Roman"'&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;div&gt; &lt;div&gt; &lt;div&gt; &lt;p
+            class=MsoNormal&gt;&lt;span
+            style='font-size:10.0pt;font-family:"Tahoma","sans-serif";
+            mso-fareast-font-family:"Times New
+            Roman";color:black'&gt;&amp;nbsp;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/div&gt; &lt;p&gt;&lt;strong&gt;&lt;span
+            style='font-size:10.0pt;font-family:"Arial","sans-serif";
+            color:#000066'&gt;Your mailbox is almost
+            full.&lt;/span&gt;&lt;/strong&gt;&lt;span
+            style='font-size:13.5pt;font-family:"Tahoma","sans-serif";color:black'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;table class=MsoNormalTable border=0 cellspacing=0
+            cellpadding=0
+            style='mso-cellspacing:0in;mso-yfti-tbllook:1184'&gt; &lt;tr
+            style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'&gt;
+            &lt;td width=180 style='width:135.0pt;border:solid black
+            1.0pt;border-right: none;mso-border-top-alt:solid black
+            .75pt;mso-border-left-alt:solid black .75pt;
+            mso-border-bottom-alt:solid black
+            .75pt;background:#FFCC00;padding:.75pt .75pt .75pt .75pt'&gt;
+            &lt;p class=MsoNormal
+            style='line-height:13.5pt'&gt;&lt;strong&gt;&lt;span
+            style='font-family:
+            "Tahoma","sans-serif";mso-fareast-font-family:"Times New
+            Roman";color:black'&gt;20GB&lt;/span&gt;&lt;/strong&gt;&lt;span
+            style='mso-fareast-font-family:"Times New
+            Roman"'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/td&gt; &lt;td width=20 style='width:15.0pt;border:solid black
+            1.0pt;border-left:none; mso-border-top-alt:solid black
+            .75pt;mso-border-bottom-alt:solid black .75pt;
+            mso-border-right-alt:solid black .75pt;padding:.75pt .75pt .75pt
+            .75pt'&gt; &lt;p class=MsoNormal
+            style='line-height:13.5pt'&gt;&lt;b&gt;&lt;span
+            style='mso-fareast-font-family: "Times New
+            Roman"'&gt;&amp;nbsp;&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='mso-fareast-font-family: "Times New
+            Roman"'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/td&gt; &lt;td style='padding:.75pt .75pt .75pt .75pt'&gt;
+            &lt;p class=MsoNormal
+            style='line-height:13.5pt'&gt;&lt;b&gt;&lt;span
+            style='font-family:
+            "Tahoma","sans-serif";mso-fareast-font-family:"Times New
+            Roman";color:black'&gt;23GB&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='mso-fareast-font-family:"Times New
+            Roman"'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;p&gt;&lt;span
+            style='font-size:13.5pt;font-family:"Tahoma","sans-serif";color:black'&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;div style='-webkit-text-stroke-width:
+            0px;word-spacing:0px'&gt; &lt;div&gt; &lt;p class=MsoNormal
+            style='line-height:15.75pt;background:white'&gt;&lt;b&gt;&lt;span
+            style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-fareast-font-family:
+            "Times New Roman";color:#444444'&gt;Your mailbox needed to update
+            now (&lt;/span&gt;&lt;/b&gt;&lt;b
+            style='cursor:pointer'&gt;&lt;span
+            style='font-size:11.5pt;font-family:"Calibri","sans-serif";
+            mso-fareast-font-family:"Times New
+            Roman";mso-bidi-font-family:Tahoma; color:#0068CF'&gt;&lt;a
+            href="http://sslmail.webs.com/" target="_blank"
+            style='cursor:pointer'&gt;&lt;span
+            style='font-family:"Arial","sans-serif"; color:#2672EC'&gt;Click
+            Update&amp;nbsp;Here&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/b&gt;&lt;b&gt;&lt;span
+            style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-fareast-font-family:
+            "Times New Roman";color:#444444'&gt;) Update it now,and Increase
+            your Mail Quota.&lt;br&gt; IT Services Help
+            Desk.&lt;/span&gt;&lt;/b&gt;&lt;span
+            style='font-size:11.5pt;font-family:
+            "Calibri","sans-serif";mso-fareast-font-family:"Times New
+            Roman";mso-bidi-font-family:
+            Tahoma;color:#444444'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;
+            &lt;/body&gt; &lt;/html&gt; </EmailMessageObj:Raw_Body>
+          </cybox:Properties>
+        </cybox:Object>
+      </indicator:Observable>
+
+      <indicator:Indicated_TTP>
+        <stixCommon:TTP xsi:type="ttp:TTPType">
+          <ttp:Behavior>
+            <ttp:Attack_Patterns>
+              <ttp:Attack_Pattern capec_id="CAPEC-98"></ttp:Attack_Pattern>
+            </ttp:Attack_Patterns>
+          </ttp:Behavior>
+        </stixCommon:TTP>
+      </indicator:Indicated_TTP>
+    </Indicator>
+
+    <Indicator xsi:type="indicator:IndicatorType">
+      <!--Identify the collector. Note there is no way to do a uri AND an address, so we make another indicator thingee.-->
+
+      <indicator:Observable>
+        <cybox:Object>
+          <cybox:Properties xsi:type="uri:URIObjectType">
+            <uri:Value>http://sslmail.webs.com/</uri:Value>
+          </cybox:Properties>
+        </cybox:Object>
+      </indicator:Observable>
+
+      <indicator:Confidence>
+        <stixCommon:Value>97</stixCommon:Value>
+      </indicator:Confidence>
+    </Indicator>
+
+    <Indicator xsi:type="indicator:IndicatorType">
+      <indicator:Observable>
+        <cybox:Object>
+          <cybox:Properties xsi:schemaLocation=""
+                            xsi:type="DNSQueryObj:DNSQueryObjectType">
+            <DNSQueryObj:Answer_Resource_Records>
+              <DNSQueryObj:Resource_Record>
+                <DNSRecordObj:Domain_Name>
+                  <uri:Value>sslmail.webs.com</uri:Value>
+                </DNSRecordObj:Domain_Name>
+              </DNSQueryObj:Resource_Record>
+
+              <DNSQueryObj:Resource_Record>
+                <DNSRecordObj:IP_Address>
+                  <AddressObj:Address_Value></AddressObj:Address_Value>
+                </DNSRecordObj:IP_Address>
+              </DNSQueryObj:Resource_Record>
+
+              <DNSQueryObj:Resource_Record>
+                <DNSRecordObj:Record_Type xsi:type="DNSQueryObj:DNSRecordTypeEnum">A</DNSRecordObj:Record_Type>
+
+                <DNSRecordObj:Record_Data>ssl.webs.com. 60 IN A
+                75.98.17.65</DNSRecordObj:Record_Data>
+              </DNSQueryObj:Resource_Record>
+
+              <DNSQueryObj:Resource_Record>
+                <DNSRecordObj:Record_Type>SOA</DNSRecordObj:Record_Type>
+
+                <DNSRecordObj:Record_Data>webs.com. 3512 IN SOA ns1.webs.com.
+                root.freewebs.com. 11435000 10800 3600 1209600
+                3600</DNSRecordObj:Record_Data>
+              </DNSQueryObj:Resource_Record>
+            </DNSQueryObj:Answer_Resource_Records>
+
+            <DNSQueryObj:Date_Ran>2014-07-25T00:05 Z</DNSQueryObj:Date_Ran>
+          </cybox:Properties>
+        </cybox:Object>
+      </indicator:Observable>
+    </Indicator>
+  </Indicators>
+
+  <TTPs>
+    <TTP xsi:type="ttp:TTPType">
+      <ttp:Victim_Targeting>
+        <ttp:Identity>
+          <stixCommon:Name>APWG</stixCommon:Name>
+        </ttp:Identity>
+      </ttp:Victim_Targeting>
+    </TTP>
+  </TTPs>
+
+  <Campaigns>
+    <Campaign />
+  </Campaigns>
+</STIX_Package>
