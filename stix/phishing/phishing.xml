@@ -10,7 +10,7 @@ Phishing reports contains data on the important pieces
 -->
 <STIX_Package id="apwg.org-382ded87-52c9-4644-bab0-ad3168cbad59"
               version="1.1.1"
-              xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/objects#FileObject-2 ../../CyBox/objects/File_Object.xsd http://cybox.mitre.org/objects#URIObject-2 ../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#EmailMessageObject-2 ../../CyBox/objects/Email_Message_Object.xsd http://stix.mitre.org/TTP-1 ../../STIX/ttp.xsd http://cybox.mitre.org/cybox-2 ../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../CyBox/cybox_common.xsd http://cybox.mitre.org/objects#URIObject-2 ../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DNSQueryObject-2 ../../CyBox/objects/DNS_Query_Object.xsd"
+              xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/objects#FileObject-2 ../../../CyBox/objects/File_Object.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#EmailMessageObject-2 ../../../CyBox/objects/Email_Message_Object.xsd http://stix.mitre.org/TTP-1 ../../../STIX/ttp.xsd http://cybox.mitre.org/cybox-2 ../../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../../CyBox/cybox_common.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DNSQueryObject-2 ../../../CyBox/objects/DNS_Query_Object.xsd http://cybox.mitre.org/objects#DomainNameObject-1 ../../../CyBox/objects/Domain_Name_Object.xsd http://stix.mitre.org/Campaign-1 ../../../STIX/campaign.xsd http://apwg.org/schemas/dataMarking-1.0 ../../schemas/apwg/apwg-markings-0.3.xsd"
               xmlns="http://stix.mitre.org/stix-1"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -30,8 +30,10 @@ Phishing reports contains data on the important pieces
               xmlns:cybox="http://cybox.mitre.org/cybox-2"
               xmlns:coa="http://stix.mitre.org/CourseOfAction-1"
               xmlns:campaign="http://stix.mitre.org/Campaign-1"
+              xmlns:apwgMarkings="http://apwg.org/schemas/dataMarking-1.0"
               xmlns:FileObj="http://cybox.mitre.org/objects#FileObject-2"
               xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+              xmlns:DomainNameObj="http://cybox.mitre.org/objects#DomainNameObject-1"
               xmlns:DNSRecordObj="http://cybox.mitre.org/objects#DNSRecordObject-2"
               xmlns:DNSQueryObj="http://cybox.mitre.org/objects#DNSQueryObject-2"
               xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2">
@@ -47,7 +49,14 @@ Phishing reports contains data on the important pieces
     </Profiles>
 
     <Handling>
-      <marking:Marking></marking:Marking>
+      <marking:Marking>
+        <marking:Marking_Structure marking_model_ref="apwg1"
+                                   xsi:type="apwgMarkings:apwgMarkingStructureType">
+          <apwgMarkings:tag>0 - Recipient only</apwgMarkings:tag>
+
+          <apwgMarkings:caveat shareWith="Do Not">US-CERT</apwgMarkings:caveat>
+        </marking:Marking_Structure>
+      </marking:Marking>
     </Handling>
 
     <Information_Source>
@@ -62,19 +71,14 @@ Phishing reports contains data on the important pieces
   <Indicators>
     <!--Maybe they are indicators. The pieces:  the email, the collector URL, -->
 
-    <Indicator xsi:type="indicator:IndicatorType"></Indicator>
-
-    <Indicator xsi:type="indicator:IndicatorType">
+    <Indicator id="apwg.org-88018e91-7255-4a01-9f03-37d3d348e315"
+               xsi:type="indicator:IndicatorType">
       <indicator:Observable>
         <!--So lets describe the email: From (address + IP + DNS), subject, Date Recd, body (+ lang)-->
 
         <cybox:Object>
           <cybox:Properties xsi:type="EmailMessageObj:EmailMessageObjectType">
             <EmailMessageObj:Header>
-              <EmailMessageObj:Received_Lines>
-                <EmailMessageObj:Received></EmailMessageObj:Received>
-              </EmailMessageObj:Received_Lines>
-
               <EmailMessageObj:From category="e-mail" is_source="true">
                 <AddressObj:Address_Value datatype="string">"Kahn, Sinval"
                 &lt;Kahnsb@unisa.ac.za&gt;</AddressObj:Address_Value>
@@ -577,22 +581,37 @@ Phishing reports contains data on the important pieces
             Tahoma;color:#444444'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
             &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;
             &lt;/body&gt; &lt;/html&gt; </EmailMessageObj:Raw_Body>
+
+            <EmailMessageObj:Raw_Header>Return-Path:
+            &lt;Kahnsb@unisa.ac.za&gt; Received: from umkn-edge.unisa.ac.za
+            (umkn-edg01.unisa.ac.za [163.200.219.15]) by server1.example.com
+            (8.14.3/8.13.8) with ESMTP id r8NM89XY024628 (version=TLSv1/SSLv3
+            cipher=RC4-MD5 bits=128 verify=FAIL) for
+            &lt;pcain@example.com&gt;; Mon, 23 Sep 2013 17:08:13 -0500
+            Received: from umkn-hub01.int.unisa.ac.za (163.200.219.17) by
+            UMKN-EDG01.int.unisa.ac.za (163.200.219.15) with Microsoft SMTP
+            Server (TLS) id 8.3.83.0; Tue, 24 Sep 2013 00:08:02 +0200
+            Received: from umkn-exc01.int.unisa.ac.za ([169.254.2.173]) by
+            umkn-hub01.int.unisa.ac.za ([163.200.219.17]) with mapi; Tue, 24
+            Sep 2013 00:06:40 +0200 From: "Kahn, Sinval"
+            &lt;Kahnsb@unisa.ac.za&gt; Date: Tue, 24 Sep 2013 00:06:40 +0200
+            Subject: Your mailbox is almost full. Thread-Topic: Your mailbox
+            is almost full. Thread-Index: AQHOuKktyMNRtJ5tuEuHboY2o1OMXQ==
+            Message-ID:
+            &lt;A061C5A29631774CB3690350D3B6434193EA24E29B@UMKN-EXC01.int.unisa.ac.za&gt;
+            Accept-Language: en-US Content-Language: en-US X-MS-Has-Attach:
+            X-MS-TNEF-Correlator: acceptlanguage: en-US Content-Type:
+            multipart/alternative;
+            boundary="_000_A061C5A29631774CB3690350D3B6434193EA24E29BUMKNEXC01intu_"
+            MIME-Version: 1.0 To: Undisclosed recipients:;
+            </EmailMessageObj:Raw_Header>
           </cybox:Properties>
         </cybox:Object>
       </indicator:Observable>
-
-      <indicator:Indicated_TTP>
-        <stixCommon:TTP xsi:type="ttp:TTPType">
-          <ttp:Behavior>
-            <ttp:Attack_Patterns>
-              <ttp:Attack_Pattern capec_id="CAPEC-98"></ttp:Attack_Pattern>
-            </ttp:Attack_Patterns>
-          </ttp:Behavior>
-        </stixCommon:TTP>
-      </indicator:Indicated_TTP>
     </Indicator>
 
-    <Indicator xsi:type="indicator:IndicatorType">
+    <Indicator id="apwg.org-cfef0df4-3f36-46de-9c15-c64380bac030"
+               xsi:type="indicator:IndicatorType">
       <!--Identify the collector. Note there is no way to do a uri AND an address, so we make another indicator thingee.-->
 
       <indicator:Observable>
@@ -600,52 +619,20 @@ Phishing reports contains data on the important pieces
           <cybox:Properties xsi:type="uri:URIObjectType">
             <uri:Value>http://sslmail.webs.com/</uri:Value>
           </cybox:Properties>
+
+          <cybox:Related_Objects>
+            <cybox:Related_Object>
+              <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType">
+                <DomainNameObj:Value datatype="IPv4 Address">75.98.17.65</DomainNameObj:Value>
+              </cybox:Properties>
+            </cybox:Related_Object>
+          </cybox:Related_Objects>
         </cybox:Object>
       </indicator:Observable>
 
       <indicator:Confidence>
         <stixCommon:Value>97</stixCommon:Value>
       </indicator:Confidence>
-    </Indicator>
-
-    <Indicator xsi:type="indicator:IndicatorType">
-      <indicator:Observable>
-        <cybox:Object>
-          <cybox:Properties xsi:schemaLocation=""
-                            xsi:type="DNSQueryObj:DNSQueryObjectType">
-            <DNSQueryObj:Answer_Resource_Records>
-              <DNSQueryObj:Resource_Record>
-                <DNSRecordObj:Domain_Name>
-                  <uri:Value>sslmail.webs.com</uri:Value>
-                </DNSRecordObj:Domain_Name>
-              </DNSQueryObj:Resource_Record>
-
-              <DNSQueryObj:Resource_Record>
-                <DNSRecordObj:IP_Address>
-                  <AddressObj:Address_Value></AddressObj:Address_Value>
-                </DNSRecordObj:IP_Address>
-              </DNSQueryObj:Resource_Record>
-
-              <DNSQueryObj:Resource_Record>
-                <DNSRecordObj:Record_Type xsi:type="DNSQueryObj:DNSRecordTypeEnum">A</DNSRecordObj:Record_Type>
-
-                <DNSRecordObj:Record_Data>ssl.webs.com. 60 IN A
-                75.98.17.65</DNSRecordObj:Record_Data>
-              </DNSQueryObj:Resource_Record>
-
-              <DNSQueryObj:Resource_Record>
-                <DNSRecordObj:Record_Type>SOA</DNSRecordObj:Record_Type>
-
-                <DNSRecordObj:Record_Data>webs.com. 3512 IN SOA ns1.webs.com.
-                root.freewebs.com. 11435000 10800 3600 1209600
-                3600</DNSRecordObj:Record_Data>
-              </DNSQueryObj:Resource_Record>
-            </DNSQueryObj:Answer_Resource_Records>
-
-            <DNSQueryObj:Date_Ran>2014-07-25T00:05 Z</DNSQueryObj:Date_Ran>
-          </cybox:Properties>
-        </cybox:Object>
-      </indicator:Observable>
     </Indicator>
   </Indicators>
 
@@ -657,9 +644,21 @@ Phishing reports contains data on the important pieces
         </ttp:Identity>
       </ttp:Victim_Targeting>
     </TTP>
+
+    <TTP xsi:type="ttp:TTPType">
+      <ttp:Behavior>
+        <ttp:Attack_Patterns>
+          <ttp:Attack_Pattern capec_id="CAPEC-98"></ttp:Attack_Pattern>
+        </ttp:Attack_Patterns>
+      </ttp:Behavior>
+    </TTP>
   </TTPs>
 
   <Campaigns>
-    <Campaign />
+    <Campaign xsi:type="campaign:CampaignType">
+      <campaign:Names>
+        <campaign:Name>APWG-Hater-1</campaign:Name>
+      </campaign:Names>
+    </Campaign>
   </Campaigns>
 </STIX_Package>
