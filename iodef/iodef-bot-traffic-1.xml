@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This example describes a compromise and subsequent installation of bots -->
+<IODEF-Document lang="en" version="1.00" xmlns="urn:ietf:params:xml:ns:iodef-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0" xmlns:bot="apwg.org/schemas/apwg-bot-1.0">
+  <Incident purpose="mitigation">
+    <IncidentID name="csirt.example.com">908711</IncidentID>
+    <ReportTime>2006-06-08T05:44:53-05:00</ReportTime>
+    <Description>system with a bot</Description>
+    <Assessment>
+      <Impact completion="succeeded" ext-type="bot" severity="high" type="ext-value" />
+    </Assessment>
+    <!-- A member of the CSIRT that is coordinating this incident -->
+    <Contact role="irt" type="person">
+      <ContactName>Joe Smith</ContactName>
+      <Email>smith@csirt.example.com</Email>
+    </Contact>
+    <EventData>
+      <Description>This host is participating in the Billy bot network. C-n-C
+      is bot.example.com.</Description>
+      <DetectTime>2012-01-19T13:14:00-05:00</DetectTime>
+      <Assessment>
+        <Impact ext-type="botted" type="ext-value" />
+        <Confidence rating="numeric">60</Confidence>
+      </Assessment>
+      <Flow>
+        <System category="source">
+          <Node>
+            <Address category="ipv4-addr">192.0.2.1</Address>
+            <NodeName>botted.example.org</NodeName>
+          </Node>
+        </System>
+      </Flow>
+      <Expectation action="investigate">
+        <Description>Confirm the source and take machines off-line and
+        remediate</Description>
+      </Expectation>
+      <AdditionalData dtype="xml">
+        <bot:BotDetails version="1">
+          <bot:BotType>GBot</bot:BotType>
+          <bot:BotVersion>2.3.1</bot:BotVersion>
+          <bot:DetectedBy>Attack Participation</bot:DetectedBy>
+          <bot:BotNetName>Billy</bot:BotNetName>
+        </bot:BotDetails>
+      </AdditionalData>
+    </EventData>
+  </Incident>
+</IODEF-Document>

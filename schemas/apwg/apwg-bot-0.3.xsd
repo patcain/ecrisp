@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:bot="apwg.org/schemas/apwg-bot-1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="apwg.org/schemas/apwg-bot-1.0">
+  <xs:import namespace="urn:ietf:params:xml:ns:iodef-1.0" schemaLocation="iodef-1.0.xsd"/>
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+  <!-- 
+  ==========================================================
+  ===       Top Level Class:  BotDetail                                                                 ===
+  ==========================================================
+
+  This schema was developed by Pat Cain, APWG. <pcain@apwg.org>
+  
+  This schema defines data classes and elements incorporated within an 
+  IODEF.Incident.EventData.AdditionalData element.for describing Bot activities.
+  A botted system traditionally has a malcious program running under the controll 
+  of another party. The botted system is used as a proxy, attack source, or to deliver 
+  system or website credentials to a collection site.
+
+Version Histiory:
+0.1    08/2011 - First cut
+0.2    09/2011 - Simplify top-level classes
+0.3    01/2012 - Validation succeeds and first trials started
+
+-->
+  <xs:element name="BotDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BotType" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="BotVersion" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="DetectedBy" type="bot:DetectedBy" minOccurs="0"/>
+        <xs:element name="BotNetName" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" use="optional" default="1.0"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="DetectedBy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="C&amp;C Communication"/>
+      <xs:enumeration value="Sinkhole"/>
+      <xs:enumeration value="Traffic Analysis"/>
+      <xs:enumeration value="Attack Participation"/>
+      <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

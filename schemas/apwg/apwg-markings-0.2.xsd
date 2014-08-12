@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ==========================================================
+  ===       Top Level Class:  dataRestrictions                                                   ===
+  ==========================================================
+
+  This schema was developed by Pat Cain, APWG. <pcain@apwg.org>
+  
+  This schema defines data classes and elements incorporated within an 
+  IODEF.Incident.AdditionalData element.to express the data sensitivity and 
+  further distribution markings for an event report.
+
+  The markings are expected to be used thusly:
+  <dataRestrictions>
+    <community name="apwg"><tag>LEO only</tag></community>
+    <community name="apwg" alias="six" version="1.0"><tag>6</tag><tag>members only</tag></community>"
+  </dataRestrictions>
+    
+Version Histiory:
+0.1    08/2011 - First cut
+0.2    01/2012 - Validation succeeds; accompyaning document written
+
+-->
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://apwg.org/schemas/dataMarking-1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:marker="http://apwg.org/schemas/dataMarking-1.0"
+           xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty">
+  <xs:element name="dataMarkings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="1" ref="marker:community"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="MLStringType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="lang" type="xs:language" use="optional"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="community">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="1" name="tag"
+                    type="marker:MLStringType"></xs:element>
+      </xs:sequence>
+
+      <xs:attribute name="alias" type="xs:string" use="optional"></xs:attribute>
+
+      <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+
+      <xs:attribute default="1.0" name="version" type="xs:string"></xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- ################################################################### -->
+
+  <!--
+  A couple example dataRestriction strucutres:
+-->
+
+  <!-- A generic "Sharing with Law Enforcement" blob:
+
+Can this data be shared with law enforcement?
+  0 - Do NOT share this data with Law Enforcement
+  1 - Share this data with Law Enforcement if an investigation is open
+  2 - Feel free to share this data with Law Enforcement
+  3 - I have previously shared this data with Law Enforcement
+
+ -->
+
+  <!--<xs:element name="">
+</xs:element>
+-->
+
+  <!--
+Sharing with the ‘Public’:
+  0 - Do not share
+  1 - Summary data may be shared
+  2 - Details may be shared
+  3 – Too late. (already shared)
+-->
+
+  <!--  <xs:element name="">
+</xs:element>
+-->
+
+  <!--
+How can this data be shared within the APWG/xxx?
+  0 - For recipient use only
+  1  Recipient(s) should NOT share details of this data outside of members
+  2 - Recipient(s) may share with their internal group
+  4 - Summary data may be shared with other trusted security types
+  6 - Data details may be shared with other trusted security types
+  9  Data has no sharing restrictions
+
+-->
+
+  <!--  <xs:element name="">
+</xs:element>
+-->
+</xs:schema>

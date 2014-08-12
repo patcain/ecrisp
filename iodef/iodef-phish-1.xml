@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IODEF-Document lang="en-US"
+                xsi:schemaLocation="urn:ietf:params:xml:ns:iodef-phish-1.0 file:/D:/APWG%20Folder/eCrisp-x/examples/iodef-phish-1.0-win.xsd"
+                xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:phish="urn:ietf:params:xml:ns:iodef-phish-1.0"
+                xmlns:ns="http://www.w3.org/1999/xhtml"
+                xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0"
+                xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+                xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <Incident purpose="mitigation" restriction="private">
+    <IncidentID name="coopercain.com">CC200600000002</IncidentID>
+
+    <ReportTime>2006-06-13T21:14:56-05:00</ReportTime>
+
+    <Description>This is a sample phishing email received report. 
+         The phish was actually received as is.</Description>
+
+    <Assessment>
+      <Impact severity="high" type="social-engineering"></Impact>
+
+      <Confidence rating="numeric">85</Confidence>
+    </Assessment>
+
+    <Contact role="creator" type="person">
+      <ContactName>patcain</ContactName>
+
+      <Email>pcain@coopercain.com</Email>
+    </Contact>
+
+    <EventData>
+      <DetectTime>2006-06-13T05:37:21-04:00</DetectTime>
+
+      <AdditionalData dtype="xml"><phish:PhraudReport FraudType="phishing">
+          <phish:FraudParameter>
+                * * * Update &amp; Verify Your PayPal Account * * *
+          </phish:FraudParameter>
+
+          <phish:FraudedBrandName>PayPal</phish:FraudedBrandName>
+
+          <phish:LureSource>
+            <System category="source">
+              <Node>
+                <Address>24.147.114.61</Address>
+              </Node>
+            </System>
+          </phish:LureSource>
+
+          <phish:OriginatingSensor OriginatingSensorType="mailgateway">
+            <phish:DateFirstSeen>2006-06-13T05:37:22-04:00</phish:DateFirstSeen>
+
+            <System>
+              <Node>
+                <NodeRole category="mail"></NodeRole>
+              </Node>
+            </System>
+          </phish:OriginatingSensor>
+
+          <phish:EmailRecord>
+            <phish:EmailCount>1</phish:EmailCount>
+
+            <phish:EmailMessage>Return-path: &lt;service@paypal.com&gt; 
+Envelope-to: pcain@coopercain.com 
+Delivery-date: Tue, 13 Jun 2006 05:37:22 -0400 
+Received: from mail15.yourhostingaccount.com ([10.1.1.161] 
+helo=mail15.yourhostingaccount.com) by mailscan38.yourhostingaccou
+nt.com with esmtp (Exim) id 1Fq5Kr-0005wU-LT for pcain@coopercain.
+com; Tue, 13 Jun 2006 05:37:21 -0400 
+Received: from [24.147.114.61] (helo=TSI) by mail15.yourhostingacc
+ount.com with esmtp (Exim) id 1Fq5Bj-0006dv-6b for pcain@coopercai
+n.com; Tue, 13 Jun 2006 05:37:21 -0400 
+Received: from User ([66.59.189.157]) by TSI with Microsoft SMTPSV
+C(5.0.2195.6713); Tue, 13 Jun 2006 02:24:30 -0400 Reply-To: &lt;no
+spa@nospa.us&gt; 
+From: "PayPal"&lt;service@paypal.com&gt; 
+Subject: * * * Update &amp; Verify Your PayPal Account * * * 
+Date: Tue, 13 Jun 2006 02:36:34 -0400 
+MIME-Version: 1.0 Content-Type: text/html; charset="Windows-1251" 
+Content-Transfer-Encoding: 7bit 
+X-Priority: 1 X-MSMail-Priority: High 
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000 
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000 Bcc: 
+Message-ID: &lt;TSIlYbvhBISmT6QcWY90000085f@TSI&gt; 
+X-OriginalArrivalTime: 13 Jun 2006 06:24:30.0218 (UTC) FILETIME=[07
+2A66A0:01C68EB2] 
+X-EN-OrigSender: service@paypal.com X-EN-OrigIP: 24.147.114.61 
+X-EN-OrigHost: unknown PayPal&lt;http://www.paypal.com/images/paypal
+_logo.gif&gt; &lt;http://www.paypal.com/images/pixel.gif&gt; &lt;htt
+p://www.paypal.com/images/pixel.gif&gt; &lt;http://www.paypal.com/im
+ages/pixel.gif&gt; Account Update Request Dear PayPal. member:, You 
+are receiving this notification because PayPal is required by law to
+ notify you, that you urgently need to update your online account st
+atement, due to high risks of fraud intentions. 
+The updating of your PayPal account can be done at any time by click
+ing on the link shown below http://www.paypal.com/cgi-bin/webscr?cmd
+=_login-run &lt;http://217.136.251.41:8080/.cgi-bin/.webscr/.secure-
+login/%20/%20/.payp al.com/index.htm&gt; Once you log in,update your
+ account information. After updating your account click on the Histo
+ry sub tab of your Account Overview page to see your most recent sta
+tement. If you need help with your password, click the Help link whi
+ch is at the upper right hand side of the PayPal website. To report 
+errors in your statement or make inquiries, click the Contact Us lin
+k in the footer on any page of the PayPal website, call our Customer
+ Service center at (402) 938-3630, or write us at: PayPal, Inc. P.O.
+ Box 45950 Omaha, NE 68145 Sincerely, PayPal &lt;http://www.paypal.c
+om/images/dot_row_long.gif&gt;</phish:EmailMessage>
+          </phish:EmailRecord>
+
+          <phish:DCSite DCType="web">
+            <phish:SiteURL>http://217.136.251.41:8080/.cgi-bin/.webscr/.secure-
+                login/%20%20/.paypal.com/index.htm</phish:SiteURL>
+
+            <phish:DomainData DomainStatus="assignedAndActive"
+                              SystemStatus="unknown">
+              <phish:Name>adsl.skynet.be</phish:Name>
+
+              <phish:DateDomainWasChecked>2006-06-14T13:05:00-05:00</phish:DateDomainWasChecked>
+
+              <phish:RegistrationDate>2000-12-13T00:00:00</phish:RegistrationDate>
+
+              <phish:Nameservers>
+                <phish:Server>ns1.skynet.be</phish:Server>
+
+                <Address>195.238.3.17</Address>
+              </phish:Nameservers>
+            </phish:DomainData>
+          </phish:DCSite>
+        </phish:PhraudReport></AdditionalData>
+    </EventData>
+  </Incident>
+</IODEF-Document>
