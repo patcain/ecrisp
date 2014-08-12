@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ==========================================================
+  ===       Top Level Class:  dataRestrictions                                                   ===
+  ==========================================================
+
+  This schema was developed by Pat Cain, APWG. <pcain@apwg.org>
+  
+  This schema defines data classes and elements incorporated within an 
+  IODEF.Incident.AdditionalData element.to express the data sensitivity and 
+  further distribution markings for an event report.
+
+  The markings are expected to be used thusly:
+  <dataRestrictions>
+    <community name="apwg"><tag>LEO only</tag></community>
+    <community name="apwg" alias="six" version="1.0"><tag>6</tag><tag>members only</tag></community>"
+  </dataRestrictions>
+    
+Version Histiory:
+0.1    08/2011 - First cut
+0.2    01/2012 - Validation succeeds; accompyaning document written
+
+-->
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://apwg.org/schemas/dataMarking-1.0"
+           version="0.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:marking="http://data-marking.mitre.org/Marking-1"
+           xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+           xmlns:apwgMarkings="http://apwg.org/schemas/dataMarking-1.0">
+  <xs:annotation>
+    <xs:documentation>This document is copyright © 2012, 2014 by the APWG,
+    www.apwg.org. Comments ans suggestons can be submitted to the principal
+    research fellow pcain@apwg.org.</xs:documentation>
+
+    <xs:documentation>This APWG developed this document as a means to mark
+    shared data.Not all datum submitted to a data cleainghouse may be
+    appropriate to share with a wide audience.Initial trials with existing
+    marking sets led us to define a flexible, extensible, set of multiple mark
+    options. </xs:documentation>
+
+    <xs:documentation>This set of marks allows for a "community" tag,
+    developed as neccessary, and optional 'caveat' tags that allow for more
+    resrictive multi-lingual guidance. Communities are encouraged to develop
+    their own sets of community and caveat structures.</xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace="http://data-marking.mitre.org/Marking-1"
+             schemaLocation="../../../STIX/data_marking.xsd"></xs:import>
+
+  <xs:complexType name="apwgMarkingStructureType">
+    <xs:complexContent>
+      <xs:extension base="marking:MarkingStructureType">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="tag"
+                      type="apwgMarkings:apwg1Tags" xml:lang="en-US"></xs:element>
+
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="caveat"
+                      type="apwgMarkings:CaveatType"></xs:element>
+        </xs:sequence>
+
+        <xs:attribute default="1.0" name="version" type="xs:string"></xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="MLStringType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute default="en-US" name="lang" type="xs:language"
+                      use="optional"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="CaveatType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute default="en-US" name="lang" type="xs:language"
+                      use="optional"></xs:attribute>
+
+        <xs:attribute default="Do" name="shareWith">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Do"></xs:enumeration>
+
+              <xs:enumeration value="Do Not"></xs:enumeration>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="apwg1Tags">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0 - Recipient only"></xs:enumeration>
+
+      <xs:enumeration value="1 - Community"></xs:enumeration>
+
+      <xs:enumeration value="11 - Internal Summary"></xs:enumeration>
+
+      <xs:enumeration value="13 - Internal Details"></xs:enumeration>
+
+      <xs:enumeration value="21 - Trusted Summary"></xs:enumeration>
+
+      <xs:enumeration value="23 - Trusted Details"></xs:enumeration>
+
+      <xs:enumeration value="31 - Public Summary"></xs:enumeration>
+
+      <xs:enumeration value="99 - No Restrictions"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
