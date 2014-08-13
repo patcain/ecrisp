@@ -20,6 +20,10 @@ In-Process encodings:
 
   An encoding to notify another party that their IP Address is surely infected.
 
+* leakage/found_data:
+
+  An encoding of discovered data that will become your next data breach.
+
 Other 'threats' will be forthcoming as they are discovered or suggested.
 
 ***NOTE:** The STIX encodings in thiss directory will not validate with the public STIX schemas unless you correct the 'xml:lang="English"' to 'xml:lang="en"'. 
