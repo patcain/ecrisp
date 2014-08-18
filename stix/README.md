@@ -19,10 +19,19 @@ In-Process encodings:
 * bots/infected:
 
   An encoding to notify another party that their IP Address is surely infected.
-
 * leakage/found_data:
 
   An encoding of discovered data that will become your next data breach.
+* malware/malware_email:
+
+  An encoding of malware receipt via email.
+* accounts/compromised:
+
+  An encoding of a compromised account notifiction.
+* accounts/fraud_try:
+
+  An encoding of an attempted fraud transaction.
+
 
 Other 'threats' will be forthcoming as they are discovered or suggested.
 
