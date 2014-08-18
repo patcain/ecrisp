@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <STIX_Package id="apwg.org-ba1d406e-937c-414f-9231-6e1dbe64fe8b"
               version="1.1.1"
-              xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/objects#FileObject-2 ../../../CyBox/objects/File_Object.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DomainNameObject-1 ../../../CyBox/objects/Domain_Name_Object.xsd http://stix.mitre.org/TTP-1 ../../../STIX/ttp.xsd http://cybox.mitre.org/cybox-2 ../../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../../CyBox/cybox_common.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DNSQueryObject-2 ../../../CyBox/objects/DNS_Query_Object.xsd http://cybox.mitre.org/objects#AccountObject-2 ../../../CyBox/objects/Account_Object.xsd http://apwg.org/schemas/dataMarking-1.0 ../../schemas/apwg/apwg-markings-0.3.xsd http://cybox.mitre.org/objects#NetworkConnectionObject-2 ../../../CyBox/objects/Network_Connection_Object.xsd"
+              xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/objects#FileObject-2 ../../../CyBox/objects/File_Object.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DomainNameObject-1 ../../../CyBox/objects/Domain_Name_Object.xsd http://stix.mitre.org/TTP-1 ../../../STIX/ttp.xsd http://cybox.mitre.org/cybox-2 ../../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../../CyBox/cybox_common.xsd http://cybox.mitre.org/objects#URIObject-2 ../../../CyBox/objects/URI_Object.xsd http://cybox.mitre.org/objects#DNSQueryObject-2 ../../../CyBox/objects/DNS_Query_Object.xsd http://cybox.mitre.org/objects#AccountObject-2 ../../../CyBox/objects/Account_Object.xsd http://apwg.org/schemas/dataMarking-1.0 ../../schemas/apwg/apwg-markings-0.3.xsd http://cybox.mitre.org/objects#NetworkConnectionObject-2 ../../../CyBox/objects/Network_Connection_Object.xsd http://cybox.mitre.org/objects#HostnameObject-1 ../../../CyBox/objects/Hostname_Object.xsd http://cybox.mitre.org/objects#UserAccountObject-2 ../../../CyBox/objects/User_Account_Object.xsd"
               xmlns="http://stix.mitre.org/stix-1"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -24,6 +24,7 @@
               xmlns:ciq="urn:oasis:names:tc:ciq:xpil:3"
               xmlns:campaign="http://stix.mitre.org/Campaign-1"
               xmlns:apwgMarkings="http://apwg.org/schemas/dataMarking-1.0"
+              xmlns:UserAccountObj="http://cybox.mitre.org/objects#UserAccountObject-2"
               xmlns:URIObj="http://cybox.mitre.org/objects#URIObject-2"
               xmlns:SocketAddressObj="http://cybox.mitre.org/objects#SocketAddressObject-1"
               xmlns:PortObj="http://cybox.mitre.org/objects#PortObject-2"
@@ -41,7 +42,7 @@
   <!--This is an example of a report of an alien system scanning a local system looking for openings. This example does not cover the case of a scan using a specific protocol trying to log in to a specifc account.-->
 
   <STIX_Header>
-    <Title>Example Reportfor Scanning for open ssh servers</Title>
+    <Title>Example Reportfor Trying to rute-force an ssh account.</Title>
 
     <Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Indicators - Network Activity</Package_Intent>
 
@@ -83,7 +84,7 @@
           <cybox:Related_Objects>
             <cybox:Related_Object>
               <cybox:Properties xsi:type="HostnameObj:HostnameObjectType">
-                <HostnameObj:Hostname_Value datatype="Host Name">uscert.org</HostnameObj:Hostname_Value>
+                <HostnameObj:Hostname_Value datatype="Host Name">cert.example.org</HostnameObj:Hostname_Value>
               </cybox:Properties>
             </cybox:Related_Object>
 
@@ -96,6 +97,12 @@
                     <PortObj:Port_Value>22</PortObj:Port_Value>
                   </SocketAddressObj:Port>
                 </NetworkConnectionObj:Destination_Socket_Address>
+              </cybox:Properties>
+            </cybox:Related_Object>
+
+            <cybox:Related_Object>
+              <cybox:Properties xsi:type="UserAccountObj:UserAccountObjectType">
+                <UserAccountObj:Username>root</UserAccountObj:Username>
               </cybox:Properties>
             </cybox:Related_Object>
           </cybox:Related_Objects>
@@ -112,9 +119,7 @@
     <TTP xsi:type="ttp:TTPType">
       <ttp:Behavior>
         <ttp:Attack_Patterns>
-          <ttp:Attack_Pattern capec_id="CAPEC-301"></ttp:Attack_Pattern>
-
-          <ttp:Attack_Pattern capec_id="CAPEC-300"></ttp:Attack_Pattern>
+          <ttp:Attack_Pattern capec_id="CAPEC-49"></ttp:Attack_Pattern>
         </ttp:Attack_Patterns>
       </ttp:Behavior>
     </TTP>

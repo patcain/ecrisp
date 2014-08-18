@@ -24,6 +24,7 @@
               xmlns:ciq="urn:oasis:names:tc:ciq:xpil:3"
               xmlns:campaign="http://stix.mitre.org/Campaign-1"
               xmlns:apwgMarkings="http://apwg.org/schemas/dataMarking-1.0"
+              xmlns:UserAccountObj="http://cybox.mitre.org/objects#UserAccountObject-2"
               xmlns:URIObj="http://cybox.mitre.org/objects#URIObject-2"
               xmlns:SocketAddressObj="http://cybox.mitre.org/objects#SocketAddressObject-1"
               xmlns:PortObj="http://cybox.mitre.org/objects#PortObject-2"
@@ -38,15 +39,15 @@
               xmlns:COA="http://stix.mitre.org/CourseOfAction-1"
               xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2"
               xmlns:AccountObj="http://cybox.mitre.org/objects#AccountObject-2">
-  <!--This is an example of a report of an alien system scanning a local system looking for openings. This example does not cover the case of a scan using a specific protocol trying to log in to a specifc account.-->
+  <!--This is an example of a report for a system showing indications of botnet membership. It has *two* entries.-->
 
   <STIX_Header>
-    <Title>Example Reportfor Scanning for open ssh servers</Title>
+    <Title>Example Bot-Infected Communications Detected</Title>
 
-    <Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Indicators - Network Activity</Package_Intent>
+    <Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Malware Characterization</Package_Intent>
 
     <Profiles>
-      <stixCommon:Profile>apwg.org:scan-general-1</stixCommon:Profile>
+      <stixCommon:Profile>apwg.org:bots-system-1</stixCommon:Profile>
     </Profiles>
 
     <Handling>
@@ -70,32 +71,30 @@
 
     <Indicator id="apwg.org-8e91de3a-90c0-4bf3-9c4a-8ac5c8cd3c27"
                xsi:type="indicator:IndicatorType">
+      <indicator:Alternative_ID>PatBot14</indicator:Alternative_ID>
+
       <indicator:Valid_Time_Position>
         <indicator:End_Time>2014-08-09T20:14:03-05:00</indicator:End_Time>
       </indicator:Valid_Time_Position>
 
       <indicator:Observable>
         <cybox:Object>
-          <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType">
-            <DomainNameObj:Value datatype="IPv4 Address">10.246.158.12</DomainNameObj:Value>
+          <cybox:Properties xsi:type="NetworkConnectionObj:NetworkConnectionObjectType">
+            <NetworkConnectionObj:Source_Socket_Address>
+              <SocketAddressObj:IP_Address>
+                <AddressObj:Address_Value>10.250.1.13</AddressObj:Address_Value>
+              </SocketAddressObj:IP_Address>
+
+              <SocketAddressObj:Port>
+                <PortObj:Port_Value>54321</PortObj:Port_Value>
+              </SocketAddressObj:Port>
+            </NetworkConnectionObj:Source_Socket_Address>
           </cybox:Properties>
 
           <cybox:Related_Objects>
             <cybox:Related_Object>
               <cybox:Properties xsi:type="HostnameObj:HostnameObjectType">
-                <HostnameObj:Hostname_Value datatype="Host Name">uscert.org</HostnameObj:Hostname_Value>
-              </cybox:Properties>
-            </cybox:Related_Object>
-
-            <cybox:Related_Object>
-              <cybox:Properties xsi:type="NetworkConnectionObj:NetworkConnectionObjectType">
-                <NetworkConnectionObj:Layer7_Protocol>ssh</NetworkConnectionObj:Layer7_Protocol>
-
-                <NetworkConnectionObj:Destination_Socket_Address>
-                  <SocketAddressObj:Port>
-                    <PortObj:Port_Value>22</PortObj:Port_Value>
-                  </SocketAddressObj:Port>
-                </NetworkConnectionObj:Destination_Socket_Address>
+                <HostnameObj:Hostname_Value>infected.example.com</HostnameObj:Hostname_Value>
               </cybox:Properties>
             </cybox:Related_Object>
           </cybox:Related_Objects>
@@ -103,7 +102,44 @@
       </indicator:Observable>
 
       <indicator:Confidence>
-        <stixCommon:Value>37</stixCommon:Value>
+        <stixCommon:Value>70</stixCommon:Value>
+      </indicator:Confidence>
+    </Indicator>
+
+    <Indicator id="apwg.org-8e91de3a-90c0-4bf3-9c4a-8ac5c8cd3c28"
+               xsi:type="indicator:IndicatorType">
+      <indicator:Alternative_ID>PatBot14</indicator:Alternative_ID>
+
+      <indicator:Valid_Time_Position>
+        <indicator:End_Time>2014-08-09T20:14:04-05:00</indicator:End_Time>
+      </indicator:Valid_Time_Position>
+
+      <indicator:Observable>
+        <cybox:Object>
+          <cybox:Properties xsi:type="NetworkConnectionObj:NetworkConnectionObjectType">
+            <NetworkConnectionObj:Source_Socket_Address>
+              <SocketAddressObj:IP_Address>
+                <AddressObj:Address_Value>182.168.1.1</AddressObj:Address_Value>
+              </SocketAddressObj:IP_Address>
+
+              <SocketAddressObj:Port>
+                <PortObj:Port_Value>4723</PortObj:Port_Value>
+              </SocketAddressObj:Port>
+            </NetworkConnectionObj:Source_Socket_Address>
+          </cybox:Properties>
+
+          <cybox:Related_Objects>
+            <cybox:Related_Object>
+              <cybox:Properties xsi:type="HostnameObj:HostnameObjectType">
+                <HostnameObj:Hostname_Value>infected2.example.com</HostnameObj:Hostname_Value>
+              </cybox:Properties>
+            </cybox:Related_Object>
+          </cybox:Related_Objects>
+        </cybox:Object>
+      </indicator:Observable>
+
+      <indicator:Confidence>
+        <stixCommon:Value>70</stixCommon:Value>
       </indicator:Confidence>
     </Indicator>
   </Indicators>
@@ -111,11 +147,13 @@
   <TTPs>
     <TTP xsi:type="ttp:TTPType">
       <ttp:Behavior>
-        <ttp:Attack_Patterns>
-          <ttp:Attack_Pattern capec_id="CAPEC-301"></ttp:Attack_Pattern>
+        <ttp:Malware>
+          <ttp:Malware_Instance>
+            <ttp:Type>Ransomware</ttp:Type>
 
-          <ttp:Attack_Pattern capec_id="CAPEC-300"></ttp:Attack_Pattern>
-        </ttp:Attack_Patterns>
+            <ttp:Name>cryptolocker</ttp:Name>
+          </ttp:Malware_Instance>
+        </ttp:Malware>
       </ttp:Behavior>
     </TTP>
   </TTPs>
