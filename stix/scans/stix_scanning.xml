@@ -82,8 +82,8 @@
 
           <cybox:Related_Objects>
             <cybox:Related_Object>
-              <cybox:Properties xsi:type="HostnameObj:HostnameObjectType">
-                <HostnameObj:Hostname_Value datatype="Host Name">uscert.org</HostnameObj:Hostname_Value>
+              <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType">
+                <DomainNameObj:Value>uscert.org</DomainNameObj:Value>
               </cybox:Properties>
             </cybox:Related_Object>
 

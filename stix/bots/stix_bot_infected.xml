@@ -87,6 +87,8 @@
 
               <SocketAddressObj:Port>
                 <PortObj:Port_Value>54321</PortObj:Port_Value>
+
+                <PortObj:Layer4_Protocol>udp</PortObj:Layer4_Protocol>
               </SocketAddressObj:Port>
             </NetworkConnectionObj:Source_Socket_Address>
           </cybox:Properties>
@@ -118,12 +120,14 @@
         <cybox:Object>
           <cybox:Properties xsi:type="NetworkConnectionObj:NetworkConnectionObjectType">
             <NetworkConnectionObj:Source_Socket_Address>
-              <SocketAddressObj:IP_Address>
+              <SocketAddressObj:IP_Address category="ipv4-addr">
                 <AddressObj:Address_Value>182.168.1.1</AddressObj:Address_Value>
               </SocketAddressObj:IP_Address>
 
-              <SocketAddressObj:Port>
+              <SocketAddressObj:Port xsi:type="PortObj:PortObjectType">
                 <PortObj:Port_Value>4723</PortObj:Port_Value>
+
+                <PortObj:Layer4_Protocol>tcp</PortObj:Layer4_Protocol>
               </SocketAddressObj:Port>
             </NetworkConnectionObj:Source_Socket_Address>
           </cybox:Properties>

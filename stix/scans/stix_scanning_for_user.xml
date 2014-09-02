@@ -83,8 +83,8 @@
 
           <cybox:Related_Objects>
             <cybox:Related_Object>
-              <cybox:Properties xsi:type="HostnameObj:HostnameObjectType">
-                <HostnameObj:Hostname_Value datatype="Host Name">cert.example.org</HostnameObj:Hostname_Value>
+              <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType">
+                <DomainNameObj:Value datatype="Domain Name">scanner4.example.com</DomainNameObj:Value>
               </cybox:Properties>
             </cybox:Related_Object>
 
@@ -112,6 +112,12 @@
       <indicator:Confidence>
         <stixCommon:Value>37</stixCommon:Value>
       </indicator:Confidence>
+
+      <indicator:Related_Indicators>
+        <indicator:Related_Indicator>
+          <stixCommon:Indicator idref="apwg.org-8e91de3a-90c0-4bf3-9c4a-8ac5c8cd3c27" />
+        </indicator:Related_Indicator>
+      </indicator:Related_Indicators>
     </Indicator>
   </Indicators>
 

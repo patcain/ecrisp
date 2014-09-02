@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<stix:STIX_Package xsi:schemaLocation="http://stix.mitre.org/stix-1 ../../../STIX/stix_core.xsd http://stix.mitre.org/default_vocabularies-1 ../../../STIX/stix_default_vocabularies.xsd http://stix.mitre.org/Indicator-2 ../../../STIX/indicator.xsd http://cybox.mitre.org/objects#AddressObject-2 ../../../CyBox/objects/Address_Object.xsd http://cybox.mitre.org/cybox-2 ../../../CyBox/cybox_core.xsd http://cybox.mitre.org/common-2 ../../../CyBox/cybox_common.xsd http://apwg.org/schemas/dataMarking-1.0 ../../schemas/apwg/apwg-markings-0.3.xsd http://cybox.mitre.org/objects#NetworkConnectionObject-2 ../../../CyBox/objects/Network_Connection_Object.xsd http://cybox.mitre.org/objects#PortObject-2 ../../../CyBox/objects/Port_Object.xsd http://cybox.mitre.org/objects#HostnameObject-1 ../../../CyBox/objects/Hostname_Object.xsd"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:ttp="http://stix.mitre.org/TTP-1"
+                   xmlns:ta="http://stix.mitre.org/ThreatActor-1"
+                   xmlns:stixVocabs="http://stix.mitre.org/default_vocabularies-1"
+                   xmlns:stixCommon="http://stix.mitre.org/common-1"
+                   xmlns:stix="http://stix.mitre.org/stix-1"
+                   xmlns:marking="http://data-marking.mitre.org/Marking-1"
+                   xmlns:indicator="http://stix.mitre.org/Indicator-2"
+                   xmlns:incident="http://stix.mitre.org/Incident-1"
+                   xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+                   xmlns:et="http://stix.mitre.org/ExploitTarget-1"
+                   xmlns:cyboxCommon="http://cybox.mitre.org/common-2"
+                   xmlns:cybox="http://cybox.mitre.org/cybox-2"
+                   xmlns:coa="http://stix.mitre.org/CourseOfAction-1"
+                   xmlns:campaign="http://stix.mitre.org/Campaign-1"
+                   xmlns:apwgMarkings="http://apwg.org/schemas/dataMarking-1.0"
+                   xmlns:URIObj="http://cybox.mitre.org/objects#URIObject-2"
+                   xmlns:SocketAddressObj="http://cybox.mitre.org/objects#SocketAddressObject-1"
+                   xmlns:PortObj="http://cybox.mitre.org/objects#PortObject-2"
+                   xmlns:NetworkConnectionObj="http://cybox.mitre.org/objects#NetworkConnectionObject-2"
+                   xmlns:HostnameObj="http://cybox.mitre.org/objects#HostnameObject-1"
+                   xmlns:HTTPSessionObj="http://cybox.mitre.org/objects#HTTPSessionObject-2"
+                   xmlns:FileObj="http://cybox.mitre.org/objects#FileObject-2"
+                   xmlns:DomainNameObj="http://cybox.mitre.org/objects#DomainNameObject-1"
+                   xmlns:DNSRecordObj="http://cybox.mitre.org/objects#DNSRecordObject-2"
+                   xmlns:DNSQueryObj="http://cybox.mitre.org/objects#DNSQueryObject-2"
+                   xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2"
+                   xmlns:AccountObj="http://cybox.mitre.org/objects#AccountObject-2">
+  <stix:Indicators>
+    <stix:Indicator xsi:type="indicator:IndicatorType">
+      <indicator:Observable>
+        <cybox:Object>
+          <cybox:Properties xsi:type="NetworkConnectionObj:NetworkConnectionObjectType">
+            <cyboxCommon:Custom_Properties>
+              <cyboxCommon:Property></cyboxCommon:Property>
+            </cyboxCommon:Custom_Properties>
+
+            <NetworkConnectionObj:Source_Socket_Address>
+              <SocketAddressObj:IP_Address>
+                <AddressObj:Address_Value>182.168.1.1</AddressObj:Address_Value>
+              </SocketAddressObj:IP_Address>
+
+              <SocketAddressObj:Port xsi:type="PortObj:PortObjectType">
+                <PortObj:Port_Value>4723</PortObj:Port_Value>
+
+                <PortObj:Layer4_Protocol>udp</PortObj:Layer4_Protocol>
+              </SocketAddressObj:Port>
+            </NetworkConnectionObj:Source_Socket_Address>
+          </cybox:Properties>
+        </cybox:Object>
+      </indicator:Observable>
+    </stix:Indicator>
+  </stix:Indicators>
+</stix:STIX_Package>
